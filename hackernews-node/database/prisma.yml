@@ -1,0 +1,10 @@
+#endpoint: ''
+endpoint: https://eu1.prisma.sh/mjaracz-b561d8/graphql-tutorial/dev
+datamodel: datamodel.graphql
+
+hooks:
+  post-deploy:
+    - graphql get-schema --project database
+
+
+secret: mysecret123
