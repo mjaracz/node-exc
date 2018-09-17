@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "bl": "^1.2.2",
+    "learnyounode": "^3.5.10",
+    "npm": "^5.8.0"
+  }
+}
