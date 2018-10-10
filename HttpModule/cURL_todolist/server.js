@@ -20,9 +20,10 @@ const server = http.createServer(function(req, res) {
       const body = items.map(function(item, index) {
         return index + ') ' + item;
       }).join('\n')
-      res.setHeader('Content-Length', Buffer.byteLength(body));
-      res.setHeader('Content-Type', 'text/plain; charset="utf-8"')
-      res.end(body +'\nOK\n')
+      
+      res.setHeader('Content-Length', Buffer.byteLength(body))
+      res.setHeader('Content-Type', 'text/plain')
+      res.end(body +'\n OK \n')
 
       break;
     case 'DELETE':
@@ -44,12 +45,19 @@ const server = http.createServer(function(req, res) {
       }
       break;
     case 'PUT':
-      let url = url.parse(req.url)
+
+      let put_item = ''
       req.setEncoding('utf8')
       req.on('data', function(chunk) {
-        url += chunk
-      }) 
-      res.end(url)
+        put_item += chunk
+      })
+
+      res.on('end', function() {
+        const lastIndex = items.length - 1
+        items.splice(lastIndex, 1, put_item)
+        res.end(put_item)
+      })
+
       break;
   }
 })
